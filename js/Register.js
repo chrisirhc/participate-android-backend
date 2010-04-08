@@ -11,10 +11,15 @@ GET(/\/register\/(.+)$/, function (profileId) {
     for (i in classList) {
         try {
             aclass = Pclass.get(classList[i].classId); 
-            if (Date.now().between(Date.parse(aclass.startTime), Date.parse(aclass.endTime))) {
+            if (Date.now()
+                    .between( // in sg
+                            Date.parse(aclass.startTime).setTimezoneOffset(+0800),
+                            Date.parse(aclass.endTime).setTimezoneOffset(+0800))
+                            ) {
                 return JSON.stringify({ok: true, pclass: aclass});
             }
         } catch(e) {
+            return JSON.stringify(e);
             // do nothing
         }
     }
