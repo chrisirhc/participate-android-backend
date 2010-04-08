@@ -1,0 +1,11 @@
+[% INCLUDE _header.html title="Profile list" %]
+<ul id="profiles">
+    [% FOREACH aprofile = profiles %]
+    <li>
+        <a href="/profile/[% aprofile.id %]">[% aprofile.userId %] - [% aprofile.name %]</a>
+		<img src=""/>
+        - <small>Created on [% aprofile.created %]</small>
+    </li>
+    [% END %]
+</ul>
+<a href="/profile/new">New Profile</a>

@@ -1,0 +1,14 @@
+[% INCLUDE _header.html title="Psession list" %]
+<ul id="profiles">
+    [% FOREACH apsession = psessionList %]
+    <li>
+        <a href="/psession/[% apsession.id %]">[% apsession.participantId %]</a><br />
+        <a href="/psession/start/[% apsession.participantId %]">Start</a>: [% apsession.startTime %]<br />
+		<a href="/psession/stop/[% apsession.participantId %]">Stop</a>: [% apsession.endTime %]<br />
+        - <small>Created on [% apsession.created %] - 
+		<a href="/psession/delete/[% apsession.id %]">X</a></small>
+    </li>
+    [% END %]
+</ul>
+<a href="/psession/start/abc">Start on abc</a><br />
+<a href="/psession/stop/abc">Stop on abc</a>

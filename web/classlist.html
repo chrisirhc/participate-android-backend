@@ -1,0 +1,10 @@
+[% INCLUDE _header.html title="Class list" %]
+<ul id="classes">
+	[% FOREACH aclass = classes %]
+	<li>
+		<a href="/class/[% aclass.id %]">[% aclass.classTitle %]</a>
+		- <small>Created on [% aclass.created %]</small>
+	</li>
+	[% END %]
+</ul>
+<a href="/class/new">New Class</a>

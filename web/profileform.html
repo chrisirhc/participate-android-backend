@@ -1,0 +1,15 @@
+[% INCLUDE _header.html title="Profile form" %]
+
+<h1>Edit Profile:</h1>
+<form action="/profile" method="post">
+    <label>User ID (Matriculation Number):
+  <input type="text" name="userId" value="[% aprofile.userId %]" /></label><br />
+  <label>Name:
+  <input type="text" name="name" value="[% aprofile.name %]" /></label><br />
+  <label>Photograph URL:
+  <input type="text" name="photograph" value="[% aprofile.photograph %]" />
+  </label><br />
+  <input type="hidden" name="profileId" value="[% aprofile.id %]" />
+    <input type="submit" name="submit" value="Submit">
+    [% IF aprofile.id %]<a href="/profile/delete/[% aprofile.id %]">Delete</a>[% END %]
+</form>

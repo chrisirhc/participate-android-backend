@@ -1,0 +1,15 @@
+[% INCLUDE _header.html title="Class form" %]
+
+<h1>Edit Class:</h1>
+<form action="/class" method="post">
+	<label>Class title:
+  <input type="text" name="classTitle" value="[% aclass.classTitle %]" /></label><br />
+  <label>Class start time:
+  <input type="text" name="startTime" value="[% aclass.startTime %]" /></label><br />
+  <label>Class end time:
+  <input type="text" name="endTime" value="[% aclass.endTime %]" />
+  </label><br />
+  <input type="hidden" name="classId" value="[% aclass.id %]" />
+	<input type="submit" name="submit" value="Submit">
+	[% IF aclass.id %]<a href="/class/delete/[% aclass.id %]">Delete</a>[% END %]
+</form>
