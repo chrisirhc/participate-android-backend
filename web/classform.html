@@ -10,6 +10,8 @@
   <input type="text" name="endTime" value="[% aclass.endTime %]" />
   </label><br />
   <input type="hidden" name="classId" value="[% aclass.id %]" />
-	<input type="submit" name="submit" value="Submit">
+	<input type="submit" name="submit" value="Submit" />
 	[% IF aclass.id %]<a href="/class/delete/[% aclass.id %]">Delete</a>[% END %]
 </form>
+
+[% INCLUDE _footer.html %]

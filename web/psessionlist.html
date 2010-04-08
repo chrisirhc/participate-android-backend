@@ -2,7 +2,8 @@
 <ul id="profiles">
     [% FOREACH apsession = psessionList %]
     <li>
-        <a href="/psession/[% apsession.id %]">[% apsession.participantId %]</a><br />
+        <a href="/psession/[% apsession.id %]">[% apsession.participantId %]</a>
+		in class <a href="/class/[% apsession.classId %]">[% apsession.classId %]</a><br />
         <a href="/psession/start/[% apsession.participantId %]">Start</a>: [% apsession.startTime %]<br />
 		<a href="/psession/stop/[% apsession.participantId %]">Stop</a>: [% apsession.endTime %]<br />
         - <small>Created on [% apsession.created %] - 
@@ -12,3 +13,5 @@
 </ul>
 <a href="/psession/start/abc">Start on abc</a><br />
 <a href="/psession/stop/abc">Stop on abc</a>
+
+[% INCLUDE _footer.html %]
