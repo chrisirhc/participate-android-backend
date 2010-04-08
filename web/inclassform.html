@@ -1,0 +1,26 @@
+[% INCLUDE _header.html title="InClass form" %]
+
+<h1>Edit InClass:</h1>
+<form action="/inclass" method="post">
+    <label>Class:
+  <select name="classId">
+  	[% FOREACH aclass = classes %]
+	<option value="[% aclass.id %]" 
+	[=% 'selected="selected"' IF aclass.id == ainclass.classId %]>[% aclass.classTitle %]</option>
+	[% END %]
+  </select>
+  </label><br />
+  <label>Profile:
+  <select name="profileId">
+    [% FOREACH aprofile = profiles %]
+    <option value="[% aprofile.id %]"
+	[=% 'selected="selected"' IF aprofile.id == ainclass.profileId %]>[% aprofile.name %]</option>
+    [% END %]
+  </select>
+  </label><br />
+  <input type="hidden" name="inClassId" value="[% ainclass.id %]" />
+    <input type="submit" name="submit" value="Submit" />
+    [% IF ainclass.id %]<a href="/ainclass/delete/[% ainclass.id %]">Delete</a>[% END %]
+</form>
+
+[% INCLUDE _footer.html %]

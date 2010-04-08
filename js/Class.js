@@ -1,5 +1,5 @@
 // List of classes
-var Class = new Resource("class", {
+var Pclass = new Resource("class", {
     /*
      * TODO For future use, this should also have a start and expiry date
      */
@@ -9,7 +9,7 @@ var Class = new Resource("class", {
         this.classTitle = aClassTitle;
     }
 });
-Class.transient = false;
+Pclass.transient = false;
 // Show new form
 GET("/class/new", function () {
     return template("classform.html");
@@ -17,7 +17,7 @@ GET("/class/new", function () {
 // Delete. I didn't use a DELETE handler because we're making it super simple
 GET(/\/class\/delete\/(.+)$/, function (classId) {
     try {
-        this.aclass = Class.get(classId);
+        this.aclass = Pclass.get(classId);
         this.aclass.remove();
     } catch (e) {
     }
@@ -27,7 +27,7 @@ GET(/\/class\/delete\/(.+)$/, function (classId) {
 // Show edit form
 GET(/\/class\/(.+)$/, function (classId) {
     try {
-        this.aclass = Class.get(classId);
+        this.aclass = Pclass.get(classId);
     } catch (e) {
         this.aclass = {
             classTitle : null,
@@ -41,7 +41,7 @@ GET(/\/class\/(.+)$/, function (classId) {
 POST(/\/class\/?/, function () {
     if (this.request.body.classId) {
         try {
-            var aclass = Class.get(this.request.body.classId);
+            var aclass = Pclass.get(this.request.body.classId);
             aclass.classTitle = this.request.body.classTitle;
             aclass.startTime = this.request.body.startTime;
             aclass.endTime = this.request.body.endTime;
@@ -50,14 +50,14 @@ POST(/\/class\/?/, function () {
             return;
         }
     } else {
-        var aclass = new Class(this.request.body.classTitle,
+        var aclass = new Pclass(this.request.body.classTitle,
                 this.request.body.startTime, this.request.body.endTime);
         aclass.save();
     }
     redirect("/class");
 });
 GET(/\/class\/?/, function () {
-    var classes = Class.search( {});
+    var classes = Pclass.search( {});
     if (classes.length) {
         this.classes = classes;
         return template("classlist.html");

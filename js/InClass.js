@@ -9,7 +9,7 @@ InClass.transient = false;
 
 // Show new form
 GET("/inclass/new", function () {
-    this.classes = Class.search( {});
+    this.classes = Pclass.search( {});
     this.profiles = Profile.search( {});
     return template("inclassform.html");
 });
@@ -24,7 +24,7 @@ GET(/\/inclass\/delete\/(.+)$/, function (inClassId) {
 
 // Show edit form
 GET(/\/inclass\/(.+)$/, function (inClassId) {
-    this.classes = Class.search( {});
+    this.classes = Pclass.search( {});
     this.profiles = Profile.search( {});
     try {
         this.ainclass = InClass.get(inClassId);

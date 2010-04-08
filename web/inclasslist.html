@@ -1,0 +1,14 @@
+[% INCLUDE _header.html title="InClass list" %]
+<ul id="profiles">
+    [% FOREACH ainclass = inclasses %]
+    <li>
+        <a href="/inclass/[% ainclass.id %]">InClass</a> -
+		<a href="/profile/[% ainclass.profileId %]">[% ainclass.profileId %]</a>
+        in class <a href="/class/[% ainclass.classId %]">[% ainclass.classId %]</a><br />
+        - <small>Created on [% apsession.created %] - 
+        <a href="/inclass/delete/[% ainclass.id %]">X</a></small>
+    </li>
+    [% END %]
+</ul>
+
+[% INCLUDE _footer.html %]
