@@ -10,7 +10,7 @@ GET(/\/getProfileId\/(.+)$/, function (userId) {
         aprofile = aprofile[0];
     else
         return JSON.stringify({ok: true,
-            profile: {id: "0", name: "anonymous" + userId, photograph: null } } );
+            profile: {id: "0", name: "anonymous" + userId, 'userId': userId, photograph: null } } );
 
     return JSON.stringify({ok: true, profile: aprofile});
 });
