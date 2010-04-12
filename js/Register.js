@@ -13,7 +13,7 @@ GET(/\/getProfileId\/(.+)$/, function (userId) {
             profile: {id: "0", name: "anonymous" + userId, photograph: null } } );
 
     return JSON.stringify({ok: true, profile: aprofile});
-}
+});
 
 /**
  * The functionality for registering a user...
