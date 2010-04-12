@@ -1,4 +1,23 @@
 // No error checking...
+
+/**
+ * Get the profileId given the userId
+ */
+GET(/\/getProfileId\/(.+)$/, function (userId) {
+    var aprofile = Profile.search({'userId': userId});
+
+    if (aprofile.length)
+        aprofile = aprofile[0];
+    else
+        return JSON.stringify({ok: true,
+            profile: {id: "0", name: "anonymous" + userId, photograph: null } } );
+
+    return JSON.stringify({ok: true, profile: aprofile);
+}
+
+/**
+ * The functionality for registering a user...
+ */
 GET(/\/register\/(.+)$/, function (profileId) {
     var aprofile;
     try {
@@ -10,7 +29,7 @@ GET(/\/register\/(.+)$/, function (profileId) {
     var aclass, i;
     for (i in classList) {
         try {
-            aclass = Pclass.get(classList[i].classId); 
+            aclass = Pclass.get(classList[i].classId);
             if (Date.now()
                     .between( // in sg
                             Date.parse(aclass.startTime).setTimezoneOffset(+0800),
@@ -23,5 +42,5 @@ GET(/\/register\/(.+)$/, function (profileId) {
             // do nothing
         }
     }
-    return JSON.stringify({ok: true});
+    return JSON.stringify({ok: true, pclass: {id: "0", classTitle: "DEMO Class"}});
 });
