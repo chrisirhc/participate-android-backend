@@ -1,0 +1,15 @@
+[% INCLUDE _header.html title="Rating list" %]
+<ul id="profiles">
+    [% FOREACH arating = ratingList %]
+    <li>
+        [% arating.profileId %] |
+		[% arating.psessionId %] |
+		[% arating.ratingPoints %] |
+		[% arating.timestamp %]
+        - <small>Created on [% apsession.created %] - 
+		<a href="/ratedelete/[% arating.id %]">X</a></small>
+    </li>
+    [% END %]
+</ul>
+
+[% INCLUDE _footer.html %]

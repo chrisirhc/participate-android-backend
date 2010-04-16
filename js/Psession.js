@@ -46,16 +46,8 @@ GET(/\/psession\/start\/(.+)$/, function (profileId) {
             this.apsession.save();
         }
         return JSON.stringify( {
-            ok : true
+            ok : true, 'psession': this.apsession
         });
-        // TODO Send out XML RPC method to the Push API to push to the Android
-        // App
-        /*
-         * system.http.request("POST", "http://mp.labs.ericsson.net/mp/rpc", [],
-         * <methodCall> <methodName>getApplicationList</methodName> <params>
-         * <param> <value><string>3f73a881746726650649bba254ea00e0</string></value>
-         * </param> </params> </methodCall>);
-         */
     });
 // Stop psession
 GET(/\/psession\/stop\/(.+)$/, function (profileId) {
