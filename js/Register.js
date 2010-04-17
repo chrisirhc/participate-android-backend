@@ -62,18 +62,35 @@ function getClassFromProfile(profileId) {
 /**
  * Get all the psessions for the class, and all the
  * ratings for each psession (the sum will do)
+ * If the classId is invalid, it will output sessions from
+ * DEMO class
  */
 GET(/\/pclasspart\/(.+)?/, function(classId) {
 	// get this class
-	var pclass = Pclass.get(classId);
+	var pclass;
+	try {
+		pclass = Pclass.get(classId);
+	} catch (e) {
+	}
 	// find all psessions under this class
 	// TODO test whether this really works (the created thing)
 	var ratingList;
 
 	// find all psessions in the current slot
-	var psessionList = Psession.search({'classId': classId,
-					'startTime': {'>=': new Date.parse(pclass.startTime).getTime()},
-					'endTime': {'<=' : new Date.parse(pclass.endTime).getTime()}});
+	var psessionList;
+	if (pclass != null) {
+		psessionList = Psession.search({
+			'classId': classId,
+			'startTime': {
+				'>=': new Date.parse(pclass.startTime).getTime()
+			},
+			'endTime': {
+				'<=': new Date.parse(pclass.endTime).getTime()
+			}
+		});
+	} else {
+		psessionList = Psession.search({'classId': "0"});
+	}
 	if (psessionList.length) {
 		for (var i in psessionList) {
 			ratingList = Rating.search({'psessionId': psessionList[i].id});
