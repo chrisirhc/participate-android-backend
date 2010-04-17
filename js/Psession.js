@@ -12,8 +12,11 @@ var Psession = new Resource("psession", {
 });
 Psession.transient = false;
 
-// Start psession
-GET(/\/psession\/start\/(.+)$/, function (profileId) {
+/**
+ * Start a session given the profileId
+ * @param {Object} profileId
+ */
+function startPsession(profileId) {
     try {
         this.aprofile = Profile.get(profileId);
     } catch (e) {
@@ -48,9 +51,12 @@ GET(/\/psession\/start\/(.+)$/, function (profileId) {
     return JSON.stringify( {
         ok : true, 'psession': this.apsession
     });
-});
-// Stop psession
-GET(/\/psession\/stop\/(.+)$/, function (profileId) {
+}
+// Start psession
+GET(/\/psession\/start\/(.+)$/, startPsession);
+POST(/\/psession\/start\/(.+)$/, startPsession);
+
+function stopPsession (profileId) {
     try {
         this.aprofile = Profile.get(profileId);
     } catch (e) {
@@ -87,7 +93,12 @@ GET(/\/psession\/stop\/(.+)$/, function (profileId) {
 		'psessionId': this.apsession.id
     });
     // Send out XML RPC method to the Push API for the teacher's app
-});
+}
+// Stop psession
+GET(/\/psession\/stop\/(.+)$/, stopPsession);
+// Post is used for webhooks
+POST(/\/psession\/stop\/(.+)$/, stopPsession);
+
 // Delete psession
 GET(/\/psession\/delete\/(.+)$/, function (psessionId) {
     try {
