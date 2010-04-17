@@ -1,13 +1,17 @@
 [% INCLUDE _header.html title="Class form" %]
 
 <h1>Edit Class:</h1>
-<form action="/class" method="post">
+<form action="/class" method="post" style="max-width: 400px">
 	<label>Class title:
   <input type="text" name="classTitle" value="[% aclass.classTitle %]" /></label><br />
+  <small>Due to a bug in the parsing for the times,
+  if your class starts/ends in the hour of 12PM (e.g. 12.30PM), please leave out the "PM" so it looks like "12:00" or "12:30".
+  If the class starts at midnight, use "0:00" or "0:12" and so forth. Otherwise, always specify PM / AM, there is no 24H parsing.
+  </small><br />
   <label>Class start time:
-  <input type="text" name="startTime" value="[% aclass.startTime %]" /></label><br />
+  <input type="text" name="startTime" value="[% aclass.startTime %]" placeholder="Mon 12:00" /></label><br />
   <label>Class end time:
-  <input type="text" name="endTime" value="[% aclass.endTime %]" />
+  <input type="text" name="endTime" value="[% aclass.endTime %]" placeholder="Mon 2:00PM" />
   </label><br />
   <input type="hidden" name="classId" value="[% aclass.id %]" />
 	<input type="submit" name="submit" value="Submit" />

@@ -24,31 +24,31 @@ GET(/\/psession\/start\/(.+)$/, function (profileId) {
             photograph : null
         };
     }
-    // TODO get the class
+	// This is from the Register.js always returns a class, whether invalid ("DEMO class") or not
+	var pclass = getClassFromProfile(profileId);
 
-        // only care about the last one
-        var psessionList = Psession.search( {
-            participantId : this.aprofile.id
-        }, {
-            sort : 'created'
-        });
-
-        if (psessionList.length
-                && psessionList[psessionList.length - 1].endTime == "") {
-            // shift forward the startTime
-            psessionList[psessionList.length - 1].startTime = Date.now()
-                    .toString();
-            psessionList[psessionList.length - 1].save();
-        } else {
-            // create new psession
-            this.apsession = new Psession(this.aprofile.id, "Demo", Date.now()
-                    .toString(), "");
-            this.apsession.save();
-        }
-        return JSON.stringify( {
-            ok : true, 'psession': this.apsession
-        });
+    // only care about the last one
+    var psessionList = Psession.search( {
+        participantId : this.aprofile.id
+    }, {
+        sort : 'created'
     });
+
+    if (psessionList.length
+            && psessionList[psessionList.length - 1].endTime == "") {
+        // shift forward the startTime
+        psessionList[psessionList.length - 1].startTime = Date.now().getTime();
+        psessionList[psessionList.length - 1].save();
+		this.apsession = psessionList[psessionList.length - 1];
+    } else {
+        // create new psession
+        this.apsession = new Psession(this.aprofile.id, pclass.id, Date.now().getTime(), "");
+        this.apsession.save();
+    }
+    return JSON.stringify( {
+        ok : true, 'psession': this.apsession
+    });
+});
 // Stop psession
 GET(/\/psession\/stop\/(.+)$/, function (profileId) {
     try {
@@ -70,10 +70,12 @@ GET(/\/psession\/stop\/(.+)$/, function (profileId) {
     // Only if there is something to stop
         if (psessionList.length
                 && psessionList[psessionList.length - 1].endTime == "") {
-            // might want to use timestamp from the Android app instead
-        psessionList[psessionList.length - 1].endTime = Date.now().toString();
+            // TODO might want to use timestamp from the Android app instead
+        psessionList[psessionList.length - 1].endTime = Date.now().getTime();
         psessionList[psessionList.length - 1].save();
-        // Remember threshold
+
+		// TODO possibly add this as a security feature in the future
+        // enforce threshold
         /*
          * if (Date.parse(first).add({seconds: 5}).isBefore(Date.parse(second)))
          * remove;
