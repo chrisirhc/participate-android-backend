@@ -28,6 +28,12 @@ GET(/\/rate\/(.+)\/(.+)$/, function (rater, psessionId) {
 	return JSON.stringify({ok: true});
 });
 
+POST(/\/rate\/(.+)\/(.+)$/, function (rater, psessionId) {
+    var newrating = new Rating(rater, psessionId, 1, Date.now().toString());
+    newrating.save();
+	return JSON.stringify({ok: true});
+});
+
 GET(/\/ratedelete\/(.+)$/, function (rateId) {
     try {
         Rating.remove(rateId);
