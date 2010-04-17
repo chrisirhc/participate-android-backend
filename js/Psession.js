@@ -73,6 +73,7 @@ GET(/\/psession\/stop\/(.+)$/, function (profileId) {
             // TODO might want to use timestamp from the Android app instead
         psessionList[psessionList.length - 1].endTime = Date.now().getTime();
         psessionList[psessionList.length - 1].save();
+		this.apsession = psessionList[psessionList.length - 1];
 
 		// TODO possibly add this as a security feature in the future
         // enforce threshold
@@ -82,7 +83,8 @@ GET(/\/psession\/stop\/(.+)$/, function (profileId) {
          */
     }
     return JSON.stringify( {
-        ok : true
+        ok : true,
+		'psessionId': this.apsession.id
     });
     // Send out XML RPC method to the Push API for the teacher's app
 });
