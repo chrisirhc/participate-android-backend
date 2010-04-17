@@ -74,8 +74,8 @@ function stopPsession (profileId) {
     });
 
     // Only if there is something to stop
-        if (psessionList.length
-                && psessionList[psessionList.length - 1].endTime == "") {
+    if (psessionList.length
+            && psessionList[psessionList.length - 1].endTime == "") {
             // TODO might want to use timestamp from the Android app instead
         psessionList[psessionList.length - 1].endTime = Date.now().getTime();
         psessionList[psessionList.length - 1].save();
@@ -90,7 +90,7 @@ function stopPsession (profileId) {
     }
     return JSON.stringify( {
         ok : true,
-		'psessionId': this.apsession.id
+		'psessionId': (this.apsession ? this.apsession.id : undefined)
     });
     // Send out XML RPC method to the Push API for the teacher's app
 }
