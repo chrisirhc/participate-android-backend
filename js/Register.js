@@ -23,6 +23,13 @@ GET(/\/register\/(.+)$/, function(profileId){
 });
 
 /**
+ * The functionality for registering a user...
+ */
+POST(/\/register\/(.+)$/, function(profileId){
+	return JSON.stringify({ok: true, pclass: getClassFromProfile(profileId)});
+});
+
+/**
  * Always returns a class that the profileId is currently attending
  * If there is no such class, it will return the "DEMO class"
  * @param {Object} profileId
