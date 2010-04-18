@@ -107,15 +107,32 @@ GET(/\/pclasspart\/(.+)$/, function(classId) {
 		psessionList = Psession.search({
 			'classId': classId,
 			'startTime': {
-				'>=': new Date.parse(pclass.startTime).getTime()
+				'>=': Date.parse(pclass.startTime).getTime()
 			},
 			'endTime': {
-				'<=': new Date.parse(pclass.endTime).getTime()
+				'<=': Date.parse(pclass.endTime).getTime()
 			}
 		});
+
+		// find previous sessions if empty?
+		/* disabled by default
+		var i = -1;
+		while (!psessionList.length) {
+			psessionList = Psession.search({
+				'classId': classId,
+				'startTime': {
+					'>=': Date.parse(pclass.startTime).add(i).week().getTime()
+				},
+				'endTime': {
+					'<=': Date.parse(pclass.endTime).add(i).week().getTime()
+				}
+			});
+			i--;
+		}
+		*/
 	} else {
 		// make sure it has already ended to allow consolidation of the ratings
-		psessionList = Psession.search({'classId': "0", 'endTime': {'!=': ""}});
+		psessionList = Psession.search({'classId': "0", 'endTime': {"<=": new Date().getTime()}});
 	}
 	if (psessionList.length) {
 		for (var i in psessionList) {
