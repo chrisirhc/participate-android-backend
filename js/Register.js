@@ -144,7 +144,7 @@ function getPsessionforClass (classId) {
 		for (var i in psessionList) {
 			// take only what you need...
 			result[i] = {};
-			result[i].id = psessionList[i].id;
+			result[i].pid = psessionList[i].id;
 			result[i].rating = 0;
 			ratingList = Rating.search({'psessionId': psessionList[i].id});
 			psessionList[i].rating = 0;
@@ -156,6 +156,8 @@ function getPsessionforClass (classId) {
 	return JSON.stringify(result);
 	// forget about efficiency
 }
-
 GET(/\/pclasspart\/(.+)$/, getPsessionforClass);
 POST(/\/pclasspart\/(.+)$/, getPsessionforClass);
+// so that /pclasspart/0 is caught. This might be a bug. since /pclasspart/1 is caught by above
+GET(/\/pclasspart\/?/, function() {return getPsessionforClass("0");});
+POST(/\/pclasspart\/?/, function() {return getPsessionforClass("0");});
