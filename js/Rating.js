@@ -10,8 +10,12 @@ var Rating = new Resource("rating", {
     }
 });
 Rating.transient = false;
-
-GET(/\/rate\/(.+)\/(.+)$/, function (rater, psessionId) {
+/**
+ * Creates a new rating
+ * @param {Object} rater
+ * @param {Object} psessionId
+ */
+function createRating(rater, psessionId) {
 	/*
 	 * Originally, thought about rating without knowing the psessionId.
 	 * But I guess that might be bad.
@@ -28,23 +32,23 @@ GET(/\/rate\/(.+)\/(.+)$/, function (rater, psessionId) {
 
 	// notify the my comet server (optional, don't care if fail) NOT OPTIMISED
 	try {
+		this.apsession = Psession.get(psessionId);
 		var ratingList = Rating.search({'psessionId': psessionId});
 		var rating = 0;
 		for (var j in ratingList) {
 			rating += ratingList[j].ratingPoints;
 		}
-		system.http.request("POST", "http://participate.vorce.net:9090/Psession", ["Accept", "application/json"],
+		return system.http.request("POST", "http://participate.vorce.net:9090/Psession", ["Accept", "application/json"],
      	JSON.stringify({'pid' : this.apsession.id, 'classId': this.apsession.classId, 'rating': rating})); // 1 point added
 	} catch(e) {}
 
 	return JSON.stringify({ok: true});
-});
+}
 
-POST(/\/rate\/(.+)\/(.+)$/, function (rater, psessionId) {
-    var newrating = new Rating(rater, psessionId, 1, Date.now().toString());
-    newrating.save();
-	return JSON.stringify({ok: true});
-});
+GET(/\/rate\/(.+)\/(.+)$/, createRating);
+POST(/\/rate\/(.+)\/(.+)$/, createRating);
+GET(/\/rate\/(.+)$/, function(psessionId) { return createRating("0", psessionId);} );
+POST(/\/rate\/(.+)$/, function(psessionId) { return createRating("0", psessionId);} );
 
 GET(/\/ratedelete\/(.+)$/, function (rateId) {
     try {
