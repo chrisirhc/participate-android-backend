@@ -88,7 +88,7 @@ GET(/\/getClassIdFromTitle\/?$/, function() {
  * If the classId is invalid, it will output sessions from
  * DEMO class
  */
-GET(/\/pclasspart\/(.+)$/, function(classId) {
+function getPsessionforClass (classId) {
 	// get this class
 	var pclass;
 	try {
@@ -155,4 +155,7 @@ GET(/\/pclasspart\/(.+)$/, function(classId) {
 	}
 	return JSON.stringify(result);
 	// forget about efficiency
-});
+}
+
+GET(/\/pclasspart\/(.+)$/, getPsessionforClass);
+POST(/\/pclasspart\/(.+)$/, getPsessionforClass);
