@@ -107,10 +107,10 @@ function getPsessionforClass (classId) {
 		psessionList = Psession.search({
 			'classId': classId,
 			'startTime': {
-				'>=': Date.parse(pclass.startTime).getTime()
+				'>=': Date.parse(pclass.startTime).setTimezoneOffset(+0800).getTime()
 			},
 			'endTime': {
-				'<=': Date.parse(pclass.endTime).getTime()
+				'<=': Date.parse(pclass.endTime).setTimezoneOffset(+0800).getTime()
 			}
 		}, {sort: 'created'});
 
