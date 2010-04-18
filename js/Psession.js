@@ -8,7 +8,13 @@ var Psession = new Resource("psession", {
         this.classId = classId;
         this.startTime = startTime;
         this.endTime = endTime;
-    }
+    },
+	'@remove' : function () {
+		var todelete = Rating.search({'psessionId': this.id});
+		for (var r in todelete) {
+			todelete[r].remove();
+		}
+	}
 });
 Psession.transient = false;
 
