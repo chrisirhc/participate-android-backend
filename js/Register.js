@@ -114,7 +114,8 @@ GET(/\/pclasspart\/(.+)$/, function(classId) {
 			}
 		});
 	} else {
-		psessionList = Psession.search({'classId': "0"});
+		// make sure it has already ended to allow consolidation of the ratings
+		psessionList = Psession.search({'classId': "0", 'endTime': {'!=': ""}});
 	}
 	if (psessionList.length) {
 		for (var i in psessionList) {

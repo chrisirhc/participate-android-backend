@@ -108,6 +108,13 @@ GET(/\/psession\/delete\/(.+)$/, function (psessionId) {
     redirect("/psession");
 });
 
+GET(/\/psession\/clearDemo\/?$/, function() {
+	var plist = Psession.search({classId: "0"});
+	for (var a in plist) {
+		plist[a].remove();
+	}
+});
+
 GET(/\/psession\/?/, function () {
     var psession = Psession.search( {});
     if (psession.length) {
