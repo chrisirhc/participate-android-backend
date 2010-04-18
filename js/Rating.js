@@ -38,9 +38,10 @@ function createRating(rater, psessionId) {
 		for (var j in ratingList) {
 			rating += ratingList[j].ratingPoints;
 		}
-		return system.http.request("POST", "http://participate.vorce.net:9090/Psession", ["Accept", "application/json"],
+		system.http.request("POST", "http://participate.vorce.net:9090/Psession", ["Accept", "application/json"],
      	JSON.stringify({'pid' : this.apsession.id, 'classId': this.apsession.classId, 'rating': rating})); // 1 point added
-	} catch(e) {}
+	} catch(e) {
+	}
 
 	return JSON.stringify({ok: true});
 }
