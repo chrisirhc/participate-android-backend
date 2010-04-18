@@ -112,7 +112,7 @@ GET(/\/pclasspart\/(.+)$/, function(classId) {
 			'endTime': {
 				'<=': Date.parse(pclass.endTime).getTime()
 			}
-		});
+		}, {sort: 'created'});
 
 		// find previous sessions if empty?
 		/* disabled by default
@@ -132,17 +132,27 @@ GET(/\/pclasspart\/(.+)$/, function(classId) {
 		*/
 	} else {
 		// make sure it has already ended to allow consolidation of the ratings
-		psessionList = Psession.search({'classId': "0", 'endTime': {"<=": new Date().getTime()}});
+		psessionList = Psession.search({
+			'classId': "0",
+			'endTime': {"<=": new Date().getTime()}
+			},
+			{sort: 'created'});
 	}
+	// Compact result, reduce load time..
+	var result = [];
 	if (psessionList.length) {
 		for (var i in psessionList) {
+			// take only what you need...
+			result[i] = {};
+			result[i].id = psessionList[i].id;
+			result[i].rating = 0;
 			ratingList = Rating.search({'psessionId': psessionList[i].id});
 			psessionList[i].rating = 0;
 			for (var j in ratingList) {
-				psessionList[i].rating += ratingList[j].ratingPoints;
+				result[i].rating += ratingList[j].ratingPoints;
 			}
 		}
 	}
-	return JSON.stringify(psessionList);
+	return JSON.stringify(result);
 	// forget about efficiency
 });
