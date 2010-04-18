@@ -66,13 +66,29 @@ function getClassFromProfile(profileId) {
     }
     return {id: "0", classTitle: "DEMO Class"};
 }
+
+// Get the ClassId given the ClassTtitle
+GET(/\/getClassIdFromTitle\/?$/, function() {
+	var pclass;
+	try {
+		pclass = Pclass.search({'classTitle': this.request.query.classTitle})[0];
+	} catch (e) {
+	}
+	if (pclass != undefined) {
+		return JSON.stringify({ok: true, classId: pclass.id});
+	}
+	return JSON.stringify({
+		ok: false
+	});
+});
+
 /**
  * Get all the psessions for the class, and all the
  * ratings for each psession (the sum will do)
  * If the classId is invalid, it will output sessions from
  * DEMO class
  */
-GET(/\/pclasspart\/(.+)?/, function(classId) {
+GET(/\/pclasspart\/(.+)$/, function(classId) {
 	// get this class
 	var pclass;
 	try {
@@ -85,7 +101,9 @@ GET(/\/pclasspart\/(.+)?/, function(classId) {
 
 	// find all psessions in the current slot
 	var psessionList;
-	if (pclass != null) {
+
+	// if a class was found
+	if (pclass != null && pclass != undefined) {
 		psessionList = Psession.search({
 			'classId': classId,
 			'startTime': {
