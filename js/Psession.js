@@ -94,6 +94,13 @@ function stopPsession (profileId) {
          * remove;
          */
     }
+
+	// notify the my comet server (optional, don't care if fail)
+	try {
+		system.http.request("POST", "http://participate.vorce.net:9090/Psession", ["Accept", "application/json"],
+     	JSON.stringify({'pid' : this.apsession.id, 'classId': this.apsession.classId, 'rating': 0}));
+	} catch(e) {}
+
     return JSON.stringify( {
         ok : true,
 		'psessionId': (this.apsession ? this.apsession.id : undefined)
@@ -121,7 +128,7 @@ GET(/\/psession\/clearDemo\/?$/, function() {
 	}
 });
 
-GET(/\/psession\/?/, function () {
+GET(/\/psession\/?$/, function () {
     var psession = Psession.search( {});
     if (psession.length) {
         this.psessionList = psession;
