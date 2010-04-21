@@ -38,7 +38,7 @@ GET(/\/class\/(.+)$/, function (classId) {
     return template("classform.html");
 });
 // Save changes or create a new class
-POST(/\/class\/?/, function () {
+POST(/\/class\/?$/, function () {
     if (this.request.body.classId) {
         try {
             var aclass = Pclass.get(this.request.body.classId);
@@ -56,7 +56,7 @@ POST(/\/class\/?/, function () {
     }
     redirect("/class");
 });
-GET(/\/class\/?/, function () {
+GET(/\/class\/?$/, function () {
     var classes = Pclass.search( {});
     if (classes.length) {
         this.classes = classes;

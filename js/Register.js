@@ -153,11 +153,49 @@ function getPsessionforClass (classId) {
 			}
 		}
 	}
-	return JSON.stringify(result);
+	return result;
 	// forget about efficiency
 }
-GET(/\/pclasspart\/(.+)$/, getPsessionforClass);
-POST(/\/pclasspart\/(.+)$/, getPsessionforClass);
+GET(/\/pclasspart\/(.+)$/, function(classId){
+	return JSON.stringify(getPsessionforClass(classId));
+});
+POST(/\/pclasspart\/(.+)$/, function(classId){
+	return JSON.stringify(getPsessionforClass(classId));
+});
 // so that /pclasspart/0 is caught. This might be a bug. since /pclasspart/1 is caught by above
-GET(/\/pclasspart\/?/, function() {return getPsessionforClass("0");});
-POST(/\/pclasspart\/?/, function() {return getPsessionforClass("0");});
+GET(/\/pclasspart\/?/, function() {return JSON.stringify(getPsessionforClass("0"));});
+POST(/\/pclasspart\/?/, function() {return JSON.stringify(getPsessionforClass("0"));});
+
+GET(/\/classpart\/(.+)$/, nicepage);
+GET(/\/classpart\/?$/, function (){return nicepage("0")});
+
+function nicepage(classTitle) {
+	try {
+		pclass = Pclass.search({'classTitle': classTitle})[0];
+	} catch (e) {}
+	if (pclass != undefined) {
+		this.classTitle = classTitle;
+		classId = pclass.id;
+	} else {
+		this.classTitle = "DEMO Class";
+		classId = "0";
+	}
+
+	psessions = getPsessionforClass(classId);
+	this.psessions = psessions;
+	var apsession, currp;
+	var i;
+	for(i in this.psessions) {
+		currp = this.psessions[i];
+		apsession = Psession.get(currp.pid);
+		try {
+			if (apsession.participantId != "0") {
+				currp.name = Profile.get(apsession.participantId).name;
+			}
+		} catch(e) {
+			currp.name = "anonymous";
+		}
+		currp.time = new Date(apsession.endTime);
+	}
+	return template("nicepage.html");
+}

@@ -1,0 +1,15 @@
+[% INCLUDE _header.html title="Nice Page" %]
+<h1>[% classTitle %]</h1>
+<ul id="profiles">
+	<table>
+    [% FOREACH arating = psessions %]
+    <tr>
+        <td>[% arating.name %]</td>
+		<td>[% arating.rating %]</td>
+		<td>[% arating.time %]</td>
+    </tr>
+    [% END %]
+	</table>
+</ul>
+
+[% INCLUDE _footer.html %]
