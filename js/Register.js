@@ -67,11 +67,21 @@ function getClassFromProfile(profileId) {
     return {id: "0", classTitle: "DEMO Class"};
 }
 
-// Get the ClassId given the ClassTtitle
+/*
+ *  Get the ClassId given the ClassTitle or if this is the ClassId, return it as well
+ *  return ok:false when it is neither
+ */
 GET(/\/getClassIdFromTitle\/?$/, function() {
 	var pclass;
 	try {
 		pclass = Pclass.search({'classTitle': this.request.query.classTitle})[0];
+	} catch (e) {
+	}
+	if (pclass != undefined) {
+		return JSON.stringify({ok: true, classId: pclass.id});
+	}
+	try {
+		pclass = Pclass.get(this.request.query.classTitle)[0];
 	} catch (e) {
 	}
 	if (pclass != undefined) {
