@@ -126,6 +126,7 @@ GET(/\/psession\/clearDemo\/?$/, function() {
 	for (var a in plist) {
 		plist[a].remove();
 	}
+	return "Demo participation sessions cleared";
 });
 
 GET(/\/psession\/?$/, function () {
