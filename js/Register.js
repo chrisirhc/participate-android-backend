@@ -205,7 +205,7 @@ function nicepage(classTitle) {
 		} catch(e) {
 			currp.name = "anonymous";
 		}
-		currp.time = (new Date(apsession.endTime)).setTimezoneOffset(+0800).toString();
+		currp.time = (new Date(apsession.endTime)).setTimezoneOffset(+0800).toString("yyyy-MM-dd HH:mm:ss");
 	}
 	return template("nicepage.html");
 }
