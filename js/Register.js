@@ -185,6 +185,9 @@ function nicepage(classTitle) {
 			classTitle = this.request.query.class;
 		}
 	} catch(e) {}
+    // return Date.today().getTimezoneOffset();
+	// return Date.getTimezoneOffset("GMT", false) + "";
+	// return (new Date()).setTimezoneOffset(+0800);//.toString(); // .getUTCOffset(); // Offset(0800).;
 	try {
 		pclass = Pclass.search({'classTitle': classTitle})[0];
 	} catch (e) {}
@@ -212,10 +215,9 @@ function nicepage(classTitle) {
 		} catch(e) {
 			currp.name = "anonymous";
 		}
-		return Date.today().getUTCOffset();
 		var thedate = new Date(apsession.endTime);
 		currp.time = thedate.setTimezoneOffset(+0800)
-			.add(Date.today().getTimezoneOffset()).minutes().add(480).minutes()
+			.add(480).minutes()
 			.toString("yyyy-MM-dd HH:mm:ss");
 	}
 	return template("nicepage.html");
