@@ -201,6 +201,8 @@ function nicepage(classTitle) {
 		try {
 			if (apsession.participantId != "0") {
 				currp.name = Profile.get(apsession.participantId).name;
+			} else {
+				currp.name = "anonymous";
 			}
 		} catch(e) {
 			currp.name = "anonymous";
