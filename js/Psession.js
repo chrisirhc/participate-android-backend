@@ -118,7 +118,7 @@ GET(/\/psession\/delete\/(.+)$/, function (psessionId) {
         Psession.remove(psessionId);
     } catch (e) {
     }
-    redirect("/psession");
+    redirect(this.request.headers["Referer"]);
 });
 
 GET(/\/psession\/clearDemo\/?$/, function() {

@@ -177,7 +177,7 @@ GET(/\/pclasspart\/?/, function() {return JSON.stringify(getPsessionforClass("0"
 POST(/\/pclasspart\/?/, function() {return JSON.stringify(getPsessionforClass("0"));});
 
 GET(/\/classpart\/(.+)$/, nicepage);
-GET(/\/classpart\/?$/, function (){return nicepage("0")});
+GET(/\/classpart\/?$/, nicepage);
 
 function nicepage(classTitle) {
 	try {
