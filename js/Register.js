@@ -212,6 +212,7 @@ function nicepage(classTitle) {
 		} catch(e) {
 			currp.name = "anonymous";
 		}
+		return Date.today().getTimezoneOffset();
 		var thedate = new Date(apsession.endTime);
 		currp.time = thedate.setTimezoneOffset(+0800)
 			.add(Date.today().getTimezoneOffset()).minutes().add(480).minutes()
