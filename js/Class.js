@@ -65,3 +65,10 @@ GET(/\/class\/?$/, function () {
         redirect("/class/new");
     }
 });
+function putClassTitles(obj) {
+	obj.classTitles = {};
+	classes = Pclass.search({});
+	for (var i in classes) {
+		obj.classTitles[classes[i].id] = classes[i].classTitle;
+	}
+}

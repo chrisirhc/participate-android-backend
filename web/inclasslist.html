@@ -3,8 +3,8 @@
     [% FOREACH ainclass = inclasses %]
     <li>
         <a href="/inclass/[% ainclass.id %]">InClass</a> -
-		<a href="/profile/[% ainclass.profileId %]">[% ainclass.profileId %]</a>
-        in class <a href="/class/[% ainclass.classId %]">[% ainclass.classId %]</a><br />
+		<a href="/profile/[% ainclass.profileId %]">[% names.${ainclass.profileId} %]</a>
+        in class <a href="/class/[% ainclass.classId %]">[% classTitles.${ainclass.classId} %]</a><br />
         - <small>Created on [% apsession.created %] - 
         <a href="/inclass/delete/[% ainclass.id %]">X</a></small>
     </li>

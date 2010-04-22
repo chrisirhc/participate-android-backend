@@ -57,6 +57,8 @@ POST(/\/inclass\/?/, function () {
 });
 GET(/\/inclass\/?/, function () {
     var inclasses = InClass.search( {});
+	putNames(this);
+	putClassTitles(this);
     if (inclasses.length) {
         this.inclasses = inclasses;
         return template("inclasslist.html");

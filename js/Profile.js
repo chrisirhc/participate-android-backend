@@ -68,3 +68,10 @@ GET(/\/profile\/?/, function () {
         redirect("/profile/new");
     }
 });
+function putNames(obj) {
+	obj.names = {};
+	profiles = Profile.search({});
+	for (var i in profiles) {
+		obj.names[profiles[i].id] = profiles[i].name;
+	}
+}
