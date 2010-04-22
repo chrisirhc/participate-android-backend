@@ -181,6 +181,11 @@ GET(/\/classpart\/?$/, nicepage);
 
 function nicepage(classTitle) {
 	try {
+		if (classTitle === undefined && this.request.query.class !== undefined) {
+			classTitle = this.request.query.class;
+		}
+	} catch(e) {}
+	try {
 		pclass = Pclass.search({'classTitle': classTitle})[0];
 	} catch (e) {}
 	if (pclass != undefined) {
