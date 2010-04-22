@@ -216,7 +216,7 @@ function nicepage(classTitle) {
 			currp.name = "anonymous";
 		}
 		var thedate = new Date(apsession.endTime);
-		currp.time = thedate.setTimezoneOffset(+0800)
+		currp.time = thedate
 			.add(480).minutes()
 			.toString("yyyy-MM-dd HH:mm:ss");
 	}
