@@ -214,7 +214,7 @@ function nicepage(classTitle) {
 		}
 		var thedate = new Date(apsession.endTime);
 		currp.time = thedate.setTimezoneOffset(+0800)
-			.add(thedate.getTimezoneOffset()).minutes().add(480).minutes()
+			.add(Date.today().getTimezoneOffset()).minutes().add(480).minutes()
 			.toString("yyyy-MM-dd HH:mm:ss");
 	}
 	return template("nicepage.html");
