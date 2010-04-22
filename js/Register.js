@@ -212,7 +212,10 @@ function nicepage(classTitle) {
 		} catch(e) {
 			currp.name = "anonymous";
 		}
-		currp.time = (new Date(apsession.endTime)).setTimezoneOffset(+0800).toString("yyyy-MM-dd HH:mm:ss");
+		var thedate = new Date(apsession.endTime);
+		currp.time = thedate.setTimezoneOffset(+0800)
+			.add(thedate.getTimezoneOffset()).minutes().add(480).minutes()
+			.toString("yyyy-MM-dd HH:mm:ss");
 	}
 	return template("nicepage.html");
 }
