@@ -60,7 +60,7 @@ POST(/\/profile\/?/, function () {
     redirect("/profile");
 });
 GET(/\/profile\/?/, function () {
-    var profiles = Profile.search( {});
+    var profiles = Profile.search( {}, {'sort': 'userId'});
     if (profiles.length) {
         this.profiles = profiles;
         return template("profilelist.html");
