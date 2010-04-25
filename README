@@ -1,0 +1,16 @@
+Participate! Backend
+====================
+
+This is our CS3248 project for NUS.
+This part requires the JoyEnt Smart Platform to run. (http://www.joyent.com/products/joyent-smart-platform/)
+
+To run it locally, for Mac users, you can use what's found at:
+http://download.smart.joyent.com/latest
+
+Otherwise, you have to build the installation from the git repositories at:
+http://github.com/joyent/smart-platform/
+
+This is a combination of three repositories:
+http://github.com/gabrielxw/participate-ambient
+http://github.com/chrisirhc/participate-android
+http://github.com/chrisirhc/participate-android-backend
